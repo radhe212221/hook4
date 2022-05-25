@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './style.css';
-import axios from 'axios';
+import { useHttp } from './hooks';
 export default function App() {
-  const [a, seta] = useState([]);
+  const { data, isloading, error } = useHttp(
+    'https://jsonplaceholder.typicode.com/photos'
+  );
 
-  const load = () => {
-    axios
-      .get('https://jsonplaceholder.typicode.com/photos')
-      .then((d) => seta(d.data));
-  };
-
-  useEffect(load, []);
+  if (isloading) return <h1>loading...</h1>;
+  if (error) return <mark>{JSON.stringify(error)}</mark>;
   return (
     <div>
-      {a.map((x) => (
+      {data?.map((x) => (
         <h5>{x.id}</h5>
       ))}
     </div>
