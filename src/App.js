@@ -6,7 +6,7 @@ export default function App() {
 
   const load = () => {
     axios
-      .get('https://jsonplaceholder.typicode.com/users')
+      .get('https://jsonplaceholder.typicode.com/photos')
       .then((d) => seta(d.data));
   };
 
@@ -14,7 +14,7 @@ export default function App() {
   return (
     <div>
       {a.map((x) => (
-        <h5>{x.name}</h5>
+        <h5>{x.id}</h5>
       ))}
     </div>
   );
