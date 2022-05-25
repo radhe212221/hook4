@@ -1,18 +1,13 @@
-import React from 'react';
-import './style.css';
-import { useHttp } from './hooks';
-export default function App() {
-  const { data, isloading, error } = useHttp(
-    'https://jsonplaceholder.typicode.com/photos'
-  );
+import React, { Suspense, lazy } from 'react';
 
-  if (isloading) return <h1>loading...</h1>;
-  if (error) return <mark>{JSON.stringify(error)}</mark>;
+const Demo = lazy(() => import('./Demo'));
+export default function App() {
   return (
     <div>
-      {data?.map((x) => (
-        <h5>{x.id}</h5>
-      ))}
+      <h1>lazy loading</h1>
+      <Suspense fallback={'pending'}>
+        <Demo />
+      </Suspense>
     </div>
   );
 }
